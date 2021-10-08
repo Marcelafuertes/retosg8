@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="client.js"></script>
+    <title>Consumir Api Producto Oracle Cloud</title>
+</head>
+
+<body>
+    <style>
+
+            input{
+                width:100px;
+
+            }
+        
+            body {
+                background: #222;
+                height: 100vh;
+                font-family: sans-serif;
+                color: white;
+                line-height: 1.5;
+                letter-spacing: 1px;
+                margin-top: 2rem;
+                }
+            summary {
+                padding: 1rem;
+                display: block;
+                background: #333;
+                padding-left: 2.2rem;
+                position: relative;
+                cursor: pointer;
+                }
+
+            summary:before {
+                content: '';
+                border-width: .4rem;
+                border-style: solid;
+                border-color: transparent transparent transparent #fff;
+                position: absolute;
+                top: 1.3rem;
+                left: 1rem;
+                transform: rotate(0);
+                transform-origin: .2rem 50%;
+                transition: .25s transform ease;
+                }
+
+                /* THE MAGIC 🧙‍♀️ */
+            details[open] > summary:before {
+                transform: rotate(90deg);
+                }
+
+
+            details summary::-webkit-details-marker {
+                display:none;
+                }
+
+            details > ul {
+                padding-bottom: 1rem;
+                margin-bottom: 0;
+                }
+
+                .column {
+                float: left;
+                width: 33.33%;
+                }
+
+            p {align-content: center;}
+
+            .row:after {
+                content: "";
+                display: table;
+                clear: both;
+                }
+            button{
+                position: relative;
+                color: #fff !important;
+                text-transform: uppercase;
+                text-decoration: none;
+                background: #0e3fc4;
+                padding: 4px;
+                border-radius: 3px;
+                display: inline-block;
+                border: none;
+                transition: all 0.4s ease 0s;
+                }
+
+            table {
+                    border-collapse: collapse;
+                    font-family: Tahoma, Geneva, sans-serif;
+
+                }
+            th{
+                background-color:rgb(0, 0, 0);
+                color:#fff;
+            }
+                table td {
+                    padding: 15px;
+
+                }
+            
+                table thead td {
+                    background-color: #54585d;
+                    color: #ffffff;
+                    font-weight: bold;
+                    font-size: 13px;
+                    border: 1px solid #54585d;
+                }
+                table tbody td {
+                    color: #636363;
+                    border: 1px solid #dddfe1;
+                }
+                table tbody tr {
+                    background-color: #f9fafb;
+                }
+                table tbody tr:nth-child(odd) {
+                    background-color: #ffffff;
+                }
+        
+    </style>
+    <h1 style="background-color:rgb(0, 0, 0); text-align:center; font-family:Fantasy">Tienda de Juegos</h1>
+    
+    <h2 style="background-color:rgb(0, 0, 0); text-align:center; font-family:Fantasy">Reto 2</h1>
+        <br>
+
+    <div class="row">
+        
+        <div class="column"><br>
+            <h2 style="background-color:rgb(33, 38, 43); text-align:center; font-family:Fantasy;color: rgb(255, 255, 255)">Juegos</h1>
+            <button id="ver" style="margin-left: 30%;">Cargar información</button><br><br>
+            <table id="Games"></table><br><br>
+            <details><summary>Crear Entrada</summary>
+                <p align="center">
+                    <input tipe="numer" id="idCG" placeholder="ID" style="text-align: center;"> 
+                    <input tipe="text" id="developerCG" placeholder="Developer" style="text-align: center;">
+                    <input tipe="numer" id="minageCG" placeholder="Minage" style="text-align: center;">
+                    <input tipe="numer" id="category_idCG" placeholder="CategoryID" style="text-align: center;">
+                    <input tipe="text" id="nameCG" placeholder="Name" style="text-align: center;">
+                    </p>
+            <button id="Crear" onclick="peticionPost()">Crear</button>
+            </details>
+            <br><br><br><br>
+        </div>
+    
+
+        <div class="column"><br>
+            <h2 style="background-color:rgb(16, 67, 145); text-align:center; font-family:Fantasy; color: rgb(255, 255, 255)">Clientes</h1>
+            <button id="verClient" onclick="getClient()" style="margin-left: 30%;">Cargar información</button><br><br>
+            <table id="client"></table><br><br>
+            <details><summary>Crear Entrada</summary>
+            <p align="center">
+                    <input tipe="numer" id="idCli" placeholder="ID" style="text-align: center;"> 
+                    <input tipe="text" id="nameCli" placeholder="Nombre" style="text-align: center;">
+                    <input tipe="numer" id="emCli" placeholder="Email" style="text-align: center;">
+                    <input tipe="numer" id="ageCli" placeholder="Edad" style="text-align: center;">
+            </p>
+            <button id="crearClient" onclick="postClient()">Crear</button>
+            </details>
+            <br><br><br><br>
+        </div>
+
+        <div class="column"><br>
+            <h2 style="background-color:rgb(18, 47, 92); text-align:center; font-family:Fantasy;color: rgb(255, 255, 255)">Mensajes</h1>
+            <button id="verMensajes" style="margin-left: 30%;">cargar informacion</button><br><br>
+            <table id="Messages"></table><br><br>
+            <details><summary>Crear Entrada</summary>
+                <p align="center">
+                    <input tipe="numer" id="" placeholder="ID" style="text-align: center;"> <br>
+                    <textarea>Escriba su mensaje aqui...</textarea>
+                </p>
+            <button id="crearMensaje" >Crear</button>
+            </details>
+        </div>
+        
+        </div>
+
+    </div>
+    <script src="script.js">
+    </script>
+
+
+</body>
+
+</html>
